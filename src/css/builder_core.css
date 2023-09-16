@@ -2428,7 +2428,7 @@
   .mode-device {
     width: 50%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: center;
   }
   .mode-device:after {
@@ -3130,7 +3130,7 @@
   [widgets-group="form"] .form-element-widget:hover {
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
   }
-  [widgets-group="form"] .form-element-widget .icon {    
+  [widgets-group="form"] .form-element-widget .icon {
     text-align: center;
     width: 35px;
     display: flex;
@@ -6922,7 +6922,7 @@ label.check-four-border.hienthi span.four-border:before {
   height: 28px;
   border: solid 1px #ccc;
   background: #fff;
-  border-radius: 3px 0 0 3px;  
+  border-radius: 3px 0 0 3px;
   z-index: 1;
 }
 .color-picker [type=text] {
@@ -7318,7 +7318,7 @@ input, textarea {
   border-color: #dee1e2;
   cursor: pointer;
   font-size: 11px;
-} 
+}
 .toggle-desktop-mobile .btn-select-type:first-child {
   margin-right: -3px!important;
 }
@@ -7416,8 +7416,8 @@ label.checker input {
   opacity: 0;
 }
 label.checker input:disabled ~ .checker-symbol::after {
-  background-color: #ddd;    
-  border-color: #ccc;    
+  background-color: #ddd;
+  border-color: #ccc;
 }
 label.checker input:disabled ~ .checker-symbol::before {
   background-color: rgba(29, 195, 141, 0.5);
