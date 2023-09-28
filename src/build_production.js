@@ -701,69 +701,25 @@ window.acpDictionary = acpDictionary;
 
 //Products
 
-window.storeProducts = [
+window.sennarh =
+
     {
-        "id": 1,
-        "user_id": 2,
-        "store_id": 1,
-        "category_id": 17,
-        "title": "StoreA - Et quas dolor non id aliquid.",
-        "description": "Qui error vel laboriosam perspiciatis nemo ut. Explicabo est aut mollitia dolores illo voluptas.",
-        "provider": "91668019171",
-        "type": "normal",
-        "stock_quantity": 66,
-        "min_stock_quantity": 19,
-        "cost_price": 62.24,
-        "marketer_price": 68.464,
-        "market_price": 71.576,
-        "discount_price": null,
-        "featured": 0,
-        "visible": 0,
-        "sales": 0,
-        "SKU": "0656246393222",
-        "weight": 5,
-        "shipping_country_id": 2,
-        "processing_time": 5,
-        "dynamic_attributes": {},
-        "pending_remove": 0,
-        "order": 8337789942,
-        "is_limited_market": 0,
-        "limited_market_price": null,
-        "last_variation_sn": 1,
-        "created_at": "2023-09-05T13:17:29.000000Z",
-        "updated_at": "2023-09-09T17:45:22.000000Z",
-        "deleted_at": null
-    },
-    {
-        "id": 1,
-        "user_id": 2,
-        "store_id": 1,
-        "category_id": 17,
-        "title": "StoreA - Et quas dolor non id aliquid.",
-        "description": "Qui error vel laboriosam perspiciatis nemo ut. Explicabo est aut mollitia dolores illo voluptas.",
-        "provider": "91668019171",
-        "type": "normal",
-        "stock_quantity": 66,
-        "min_stock_quantity": 19,
-        "cost_price": 62.24,
-        "marketer_price": 68.464,
-        "market_price": 71.576,
-        "discount_price": null,
-        "featured": 0,
-        "visible": 0,
-        "sales": 0,
-        "SKU": "0656246393222",
-        "weight": 5,
-        "shipping_country_id": 2,
-        "processing_time": 5,
-        "dynamic_attributes": {},
-        "pending_remove": 0,
-        "order": 8337789942,
-        "is_limited_market": 0,
-        "limited_market_price": null,
-        "last_variation_sn": 1,
-        "created_at": "2023-09-05T13:17:29.000000Z",
-        "updated_at": "2023-09-09T17:45:22.000000Z",
-        "deleted_at": null
+        checkoutUrl: 'http://sennarah.test/quickcheckout/',
+        storeProducts:
+            [
+                {
+                    "id": 1,
+                    "title": "Product1",
+                },
+                {
+                    "id": 2,
+                    "title": "Product2",
+                },
+                {
+                    "id": 3,
+                    "title": "Product3",
+                }
+            ]
     }
-]
+
+

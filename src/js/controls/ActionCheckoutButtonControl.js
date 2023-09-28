@@ -16,31 +16,6 @@ export default class ActionCheckoutButtonControl extends Control {
         div.find('.action-button .down-menu-button').append('<li style="display:none;"><a class="link-button select-option link-page" href="javascript:;" data-name="--Select option--" id="">--Select option--</a></li>');
 
 
-        //************************* Product Drop Down *************************//
-        // Cache the .action-button element for reuse
-        var actionButton = div.find('.action-button');
-        // Create a jQuery object for the select element and populate it with options
-        var select = $(`<select id="product-dropdown-${this.id}" class="form-control text-center w-50">
-            </select>`);
-        // Append options from window.storeProducts
-        window.storeProducts.forEach(function (product) {
-            select.append(`<option value="${product.id}">${product.title}</option>`);
-        });
-        // Create a template for the widget section
-        var widgetSectionTemplate = `
-            <div id="product-widget-section-${this.id}" class="widget-section">
-            <div class="label">Select Product</div>
-            </div>
-            `;
-        // Append the widget section to .action-button
-        actionButton.append(widgetSectionTemplate);
-        // Append the select element to the widget section
-        actionButton.find(`#product-widget-section-${this.id}`).append(select);
-
-
-        //************************* Product Drop Down *************************//
-
-
         div.find('.action-button .action-button-link').html(getI18n('select_option'));
         div.find('.action-button .down-menu-action-button').append('<li style="display:none;"><a class="link-action-button select-option link-action-page" href="javascript:;" data-name="--Select option--" id="">--Select option--</a></li>');
 
@@ -78,7 +53,35 @@ export default class ActionCheckoutButtonControl extends Control {
         div.find('.action-button .input-url').attr('id', input_url_external);
 
         //truong hop the aco link la external url
-        var href = this.value.data_action;
+        var href = this.value.data_action ;
+
+
+        //************************* Product Drop Down *************************//
+        // Cache the .action-button element for reuse
+        var actionButton = div.find('.action-button');
+        // Create a jQuery object for the select element and populate it with options
+        var select = $(`<select id="product-dropdown-${this.id}" class="form-control text-center w-50">
+            </select>`);
+        // Append options from window.storeProducts
+        window.sennarh.storeProducts.forEach(function (product) {
+
+            select.append(`<option ${href === (window.sennarh.checkoutUrl + product.id) ? 'selected' : ''} id="store-product-${product.id}" value="${product.id}">${product.title}</option>`);
+        });
+        // Create a template for the widget section
+        var widgetSectionTemplate = `
+            <div id="product-widget-section-${this.id}" class="widget-section">
+            <div class="label">Select Product</div>
+            </div>
+            `;
+        // Append the widget section to .action-button
+        actionButton.append(widgetSectionTemplate);
+        // Append the select element to the widget section
+        actionButton.find(`#product-widget-section-${this.id}`).append(select);
+
+
+        //************************* Product Drop Down *************************//
+
+
         if (href == undefined || href == '') {
             div.find('.action-button button.action-button-link').addClass('disable');
             div.find('.action-button button.owp-button').addClass('disable');
@@ -104,31 +107,20 @@ export default class ActionCheckoutButtonControl extends Control {
             var url = string.split(']}')[0];
 
             var href_ext = href.indexOf('{URL[http');
-            if (href_ext !== -1) {
-                div.find('.action-button .owp-button').html(getI18n('product'));
-                var external_url = div.find('.action-button .owp-button').html();
-                if (external_url == getI18n('product')) {
-                    div.find('.action-button .input-url').removeClass('input-url-hide');
-                }
-                div.find('.action-button .input-external').attr('value', url);
-                div.find('.action-button input.check-link-page').attr("checked", true);
-                div.find('.action-button button.action-button-link').addClass('disable');
-                div.find('.action-button div.arrows-button').addClass('disable');
 
-            } else if (href_ext == -1) {
-                div.find('.action-button .owp-button').html(getI18n('product'));
-                var ext_url = div.find('.action-button .owp-button').html();
-                if (ext_url == getI18n('product')) {
-                    div.find('.action-button .input-url').removeClass('input-url-hide');
-                }
-                div.find('.action-button .input-external').attr('value', href);
-                div.find('.action-button input.check-link-page').attr("checked", true);
-                div.find('.action-button button.action-button-link').addClass('disable');
-                div.find('.action-button div.arrows-button').addClass('disable');
+            div.find('.action-button .owp-button').html(getI18n('product'));
+            var ext_url = div.find('.action-button .owp-button').html();
+            if (ext_url == getI18n('product')) {
+                div.find('.action-button .input-url').removeClass('input-url-hide');
             }
+            div.find('.action-button .input-external').attr('value', href);
+            div.find('.action-button input.check-link-page').attr("checked", true);
+            div.find('.action-button button.action-button-link').addClass('disable');
+            div.find('.action-button div.arrows-button').addClass('disable');
         }
-        div.find('.action-button .giua').addClass('d-none');
 
+
+        div.find('.action-button .giua').addClass('d-none');
 
 
         //click select options
@@ -172,8 +164,8 @@ export default class ActionCheckoutButtonControl extends Control {
         });
 
         $(document).on('change', '#' + product_dropdown_id, function () {
-            var data_action = $(this).val();
-            console.log(data_action, '#product-dropdown')
+            var data_action = window.sennarh.checkoutUrl + $(this).val();
+            $('#' + input_external_id).val(data_action);
             thisControl.callback({data_action: data_action});
         });
 
@@ -195,6 +187,7 @@ export default class ActionCheckoutButtonControl extends Control {
             $('#' + input_url_external).addClass('input-url-hide');
         });
 
+        console.log(div.html())
         return div.html();
     }
 
