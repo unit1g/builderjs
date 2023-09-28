@@ -125,6 +125,7 @@ Editor.prototype = {
 
     // hide loading effect when done
     done: function () {
+
         var thisEditor = this;
 
         $('.loading-page-overlay').remove();
@@ -396,7 +397,7 @@ Editor.prototype = {
         var notSupportedMethods = [ 'PUT', 'PATCH', 'TRACE', 'OPTIONS', 'DELETE', 'HEAD', 'CONNECT' ];
         if (typeof(requestMethod) == 'undefined' || notSupportedMethods.includes( requestMethod.toUpperCase())) {
             requestMethod = 'POST';
-        } 
+        }
 
         $('button.btn-save').attr("disabled", 'disabled');
         $('button.btn-save').html('<div class="loader-save"></div>');
@@ -433,7 +434,7 @@ Editor.prototype = {
                     //$('.footer .footer-right span').show();
                     $('button.btn-save').removeAttr("disabled", 'disabled');
                     $('button.btn-save').html(getI18n('save'));
-                    
+
                     // callback
                     if (typeof(callback) !== 'undefined') {
                         callback();
@@ -593,7 +594,7 @@ Editor.prototype = {
 
     back: function() {
         var thisEditor = this;
-        
+
         var changed = (thisEditor.saveAchor != thisEditor.currentRecordAchor);
 
         if (changed) {
@@ -731,14 +732,14 @@ Editor.prototype = {
     canDropInside: function(element) {
         var hasCell = this.dropHtml.includes('CellElement');
         var containerIsCell = element.obj.attr('builder-element') == 'CellElement';
-        
+
         return element.isContainer() && !(hasCell && containerIsCell);
     },
 
     canDropBeside: function(element) {
         var hasCell = this.dropHtml.includes('CellElement');
         var insideCell = element.obj.closest('[builder-element="CellElement"]').length > 0;
-        
+
         return !this.strict || (element.isDraggable() && !(hasCell && insideCell));
     },
 
@@ -871,16 +872,16 @@ Editor.prototype = {
                     </div>
                 `);
             }
-                
+
             pItem.find('.container').eq(0).append(items);
             items = pItem;
         }
 
         // hide effects
-        items.css('opacity', 0);        
+        items.css('opacity', 0);
 
         // CASE 1: element is container
-        if (thisEditor.canDropInside(element)) {            
+        if (thisEditor.canDropInside(element)) {
             // find postion vs element
             var pos = element.checkTargetPosition(e);
 
@@ -950,7 +951,7 @@ Editor.prototype = {
 
             var widget_id = $(this).attr('id');
             var widget;
-            
+
             // get widget
             widget = thisEditor.widgets[widget_id];
 
@@ -1055,7 +1056,7 @@ Editor.prototype = {
     },
 
     inlineEdit: function(container) {
-        var thisEditor = this; 
+        var thisEditor = this;
 
         // custom inline edit
         if (thisEditor.customInlineEdit) {
@@ -1108,7 +1109,7 @@ Editor.prototype = {
                 //toolbar: 'undo redo | bold italic underline | fontselect fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignfull | numlist bullist outdent indent',
                 toolbar: toolbar,
                 setup: function (editor) {
-                
+
                     /* Menu button that has a simple "insert date" menu item, and a submenu containing other formats. */
                     /* Clicking the first menu item or one of the submenu items inserts the date in the selected format. */
                     editor.ui.registry.addMenuButton('menuDateButton', {
@@ -1126,12 +1127,12 @@ Editor.prototype = {
                                             editor.insertContent(tag.text);
                                         } else {
                                             editor.insertContent(tag.tag);
-                                        }                                            
+                                        }
                                     }
                                 });
                             }
                         });
-                        
+
                         callback(items);
                       }
                     });
@@ -1245,7 +1246,7 @@ Editor.prototype = {
     setupIframe: function(callback) {
         var thisEditor = this;
 
-        // code will run after iframe has finished loading        
+        // code will run after iframe has finished loading
         $("#builder_iframe").contents().find('head').append('<link builder-helper="true" rel="stylesheet" href="'+thisEditor.root+'iframe/builder-frame.css">');
         if (thisEditor.iconStyle == 'default') {
             $("#builder_iframe").contents().find('head').append('<link builder-helper="true" rel="stylesheet" href="'+thisEditor.root+'iframe/fontawesome-free/css/fontawesome.min.css">');
@@ -1299,7 +1300,7 @@ Editor.prototype = {
 
     initIframe: function() {
         var thisEditor = this;
-        
+
         // content iframe after loaded listening
         thisEditor.iframe.on('load', function() {
             thisEditor.setupIframe(function() {
@@ -1313,7 +1314,7 @@ Editor.prototype = {
                     thisEditor.iframeLoadedCallback();
                 }
 
-                // 
+                //
                 thisEditor.adjustIframeSize();
 
                 // all done
@@ -1321,7 +1322,7 @@ Editor.prototype = {
             });
         });
 
-        if (!thisEditor.url) {            
+        if (!thisEditor.url) {
             var html = '<!DOCTYPE html><html lang="en"><head>' +
                 '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">' +
                     '<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">' +
@@ -1366,7 +1367,7 @@ Editor.prototype = {
         // add rand cache
         url = thisEditor.addParameterToURL(url, 'builderjscache=' + (Math.random() + 1).toString(36).substring(7));
         thisEditor.url = url;
-        
+
         thisEditor.iframe.attr('src', thisEditor.url);
 
         if (typeof(callback) !== 'undefined') {
@@ -1401,7 +1402,7 @@ Editor.prototype = {
         // init autocomplete input
         acpAutocomplete (thisEditor, tags);
     },
-    
+
     isNotElement: function (obj) {
         if (obj[0].hasAttribute('builder-no-select')) {
             return true;
@@ -1425,13 +1426,13 @@ Editor.prototype = {
             return false;
         }
     },
-    
+
     showEditCode: function () {
         var thisEditor = this;
-        
+
         thisEditor.editHtmlPopup = new PopUp(getI18n('edit_html_code'), 'auto');
         var content = $('#EditHtmlModal').html();
-        
+
         content = window.beautify.html(content, {
             indent_size: '2',
             indent_char: ' ',
@@ -1450,9 +1451,9 @@ Editor.prototype = {
             comma_first: false,
             e4x: false
         });
-        
+
         thisEditor.editHtmlPopup.loadHtml(content);
-        
+
         //set editor with ace js
         thisEditor.edit_html = ace.edit("EditHtml");
         thisEditor.edit_html.setTheme("ace/theme/monokai");
@@ -1460,7 +1461,7 @@ Editor.prototype = {
         thisEditor.edit_html.session.setTabSize(4);
         thisEditor.edit_html.setValue(thisEditor.selected.obj[0].outerHTML);
         thisEditor.edit_html.session.setUseWrapMode(true);
-        
+
         thisEditor.edit_html.setOptions({
             maxLines: (window.innerHeight - 260)/15,
             minLines: (window.innerHeight - 260)/15
@@ -1541,7 +1542,7 @@ Editor.prototype = {
         $("#builder_iframe").contents().find("body").on('mouseup', '.builder-duplicate-selected-button', function() {
             thisEditor.duplicate();
         });
-        
+
         // Click on code action on left content (khi nhan chuot phai no duplicate)
         $("#builder_iframe").contents().find("body").on('mouseup', '.builder-code-selected-button', function() {
             thisEditor.showEditCode();
@@ -1662,7 +1663,7 @@ Editor.prototype = {
 
         // iframe resize event
         var iframeWin = document.getElementById('builder_iframe').contentWindow;
-        iframeWin.addEventListener('resize', function(){ 
+        iframeWin.addEventListener('resize', function(){
             if (thisEditor.selected != null) {
                 thisEditor.selected.select();
             }
@@ -1749,9 +1750,10 @@ Editor.prototype = {
         //         'TextWidget',
         //     ];
         // }
-        
+
         if (this.strict) {
             return [
+                'SennarhProductWidget',
                 'TwoColumnsWidget',
                 'ThreeColumnsWidget',
                 'CenterLogoWidget',
@@ -1776,7 +1778,7 @@ Editor.prototype = {
                 'VideoWidget',
                 'TableWidget',
                 'Table4Widget',
-                'Table5Widget'
+                'Table5Widget',
             ];
         }
 
@@ -1789,7 +1791,7 @@ Editor.prototype = {
             'HtmlWidget',
             'ImageCaptionWidget',
             'FooterWidget',
-            'HeaderWidget',            
+            'HeaderWidget',
             'ListImageWidget',
             'ProgressBarWidget',
             'ListGroupWidget',
@@ -1849,8 +1851,8 @@ Editor.prototype = {
                     index: 0,
                     group: 'form'
                 });
-            });              
-            
+            });
+
             // Add submit button
             thisEditor.addWidget(new SubmitButtonWidget(), {
                 index: 0,
@@ -1899,7 +1901,7 @@ Editor.prototype = {
                 group.find('a.link-hide_less').hide();
                 group.find('a.link-show_more').hide();
             }
-        });            
+        });
     },
 
     selectParent: function(element) {
@@ -1995,13 +1997,13 @@ Editor.prototype = {
         var new_w = $(thisEditor.transformHtml(html));
         var posItem;
         if (index !== null && container.children().eq(index).length) {
-            posItem = container.children().eq(index); 
-            
+            posItem = container.children().eq(index);
+
             posItem.before(new_w);
         } else {
             posItem = container.append(new_w);
         }
-        
+
         return new_w;
     },
 
@@ -2136,14 +2138,14 @@ Editor.prototype = {
                         var matches = filenameRegex.exec(disposition);
                         if (matches != null && matches[1]) filename = matches[1].replace(/['"]/g, '');
                     }
-            
+
                     if (typeof window.navigator.msSaveBlob !== 'undefined') {
                         // IE workaround for "HTML7007: One or more blob URLs were revoked by closing the blob for which they were created. These URLs will no longer resolve as the data backing the URL has been freed."
                         window.navigator.msSaveBlob(blob, filename);
                     } else {
                         var URL = window.URL || window.webkitURL;
                         var downloadUrl = URL.createObjectURL(blob);
-            
+
                         if (filename) {
                             // use HTML5 a[download] attribute to specify filename
                             var a = document.createElement("a");
@@ -2159,7 +2161,7 @@ Editor.prototype = {
                         } else {
                             window.location.href = downloadUrl;
                         }
-            
+
                         setTimeout(function () { URL.revokeObjectURL(downloadUrl); }, 100); // cleanup
                     }
                 }
@@ -2213,20 +2215,20 @@ Editor.prototype = {
             e.preventDefault();
             thisEditor.save();
         });
-        
+
         $(document).on('click', '.menu-bar-action.btn-save-and-close', function(e) {
             e.preventDefault();
-            
+
             thisEditor.save(function() {
               // check if builder has backCallback
               if (typeof(thisEditor.backCallback) !== 'undefined') {
                 thisEditor.backCallback();
               } else {
                 window.location.href = thisEditor.urlBack;
-              }                
+              }
             });
         });
-        
+
         $(document).on('click', '.menu-bar-action.btn-export', function(e) {
             e.preventDefault();
 
@@ -2276,7 +2278,7 @@ Editor.prototype = {
             var template_url = $(this).attr('template-url');
             thisEditor.changeTemplate(template_url);
         });
-        
+
         //js click change template
         $(document).on('click', '.new-from-template-select', function(e) {
             e.preventDefault();
@@ -2298,7 +2300,7 @@ Editor.prototype = {
 
             thisEditor.back();
         });
-        
+
         // click on close button in top menu bar
         $(document).on('click', '.menu-bar-action.btn-close, .bp-exit', function(e){
             e.preventDefault();
@@ -2353,7 +2355,7 @@ Editor.prototype = {
             $('ul.action-sync').removeClass('show-action');
             return;
         });
-        
+
         //js click not button choose-lang
         $('*:not(.choose-lang)').click(function() {
             $('ul.action-lang').removeClass('show-action');
@@ -2465,7 +2467,7 @@ Editor.prototype = {
             $('.content-background').removeClass('mode-mobile');
             $('.content-background').removeClass('mode-tablet');
             $('.content-background').removeClass('mode-desktop');
-            
+
             var mode = $(this).attr('data-mode');
             $('img.bg-image').attr('data-mode', mode);
             $('li.change-background').attr('data-mode', mode);
@@ -2474,7 +2476,7 @@ Editor.prototype = {
         $(document).on('click', 'li.mode-mobile', function() {
             thisEditor.backgroundModeMobile();
         });
-        
+
         $(document).on('click', 'li.box-mode-mobile', function() {
             thisEditor.backgroundModeMobile();
         });
@@ -2482,7 +2484,7 @@ Editor.prototype = {
         $(document).on('click', 'li.mode-tablet', function() {
             thisEditor.backgroundModeTablet();
         });
-        
+
         $(document).on('click', 'li.box-mode-tablet', function() {
             thisEditor.backgroundModeTablet();
         });
@@ -2490,11 +2492,11 @@ Editor.prototype = {
         $(document).on('click', 'li.mode-desktop', function() {
             thisEditor.backgroundModeDesktop();
         });
-        
+
         $(document).on('click', 'li.box-mode-desktop', function() {
             thisEditor.backgroundModeDesktop();
         });
-        
+
         $(document).on('click', '.group-device li.device-screen', function() {
             $('.content-background').removeClass('mode-mobile-320 mode-mobile-360 mode-mobile-375 mode-mobile-414 mode-tablet-768 mode-tablet-1024 mode-desktop-1280 mode-desktop-1360 mode-desktop-1920 mode-mobile mode-tablet mode-desktop');
 
@@ -2523,7 +2525,7 @@ Editor.prototype = {
             $('.padding-img').toggleClass('hienlen');
             $('._1_minus-plus.img').toggleClass('andi');
         });
-        
+
         //js click hien slide range detail img
         $(document).on('click', 'span.slider.disable', function() {
             $('input.myRanges').prop("disabled", true);
@@ -2743,7 +2745,7 @@ Editor.prototype = {
             e.preventDefault();
             $('ul.action-lang').toggleClass('show-action');
         });
-        
+
         //click button sync
         $(document).on('click', '.choose-sync', function(e) {
             e.preventDefault();
@@ -2882,25 +2884,25 @@ Editor.prototype = {
             var url = thisEditor.uploadTemplateUrl;
             thisEditor.uploadTemplate(url);
         });
-        
+
         // click save edit html
         $(document).on('click', '.edit-html-save-button', function(e){
             e.preventDefault();
-            
+
             var cur = thisEditor.selected;
-            
+
             var html = thisEditor.edit_html.getValue();
-            
+
             var newObj = $(html);
 
             thisEditor.selected.obj.replaceWith(newObj);
-            
+
             var element = thisEditor.elementFactory(newObj);
             if (element !== null) {
                 thisEditor.select(element);
                 thisEditor.handleSelect();
             }
-            
+
             thisEditor.editHtmlPopup.hide();
         });
 
@@ -2912,7 +2914,7 @@ Editor.prototype = {
             return false;
         });
     },
-    
+
     changeActiveDevice: function() {
         $('.box-mode-mobile').removeClass('active');
         $('.box-mode-tablet').removeClass('active');
@@ -2921,7 +2923,7 @@ Editor.prototype = {
         $('.box-mode-tablet').removeClass('background-active');
         $('.box-mode-desktop').removeClass('background-active');
     },
-    
+
     backgroundModeMobile: function() {
         var thisEditor = this;
         $('.content-background').addClass('mode-mobile');
@@ -2930,11 +2932,11 @@ Editor.prototype = {
         $('li.mode-mobile').find('i.icon-mode').css('color', 'white');
         $('li.mode-tablet').find('i.icon-mode').css('color', 'rgb(150, 150, 150)');
         $('li.mode-desktop').find('i.icon-mode').css('color', 'rgb(150, 150, 150)');
-        
+
         thisEditor.changeActiveDevice();
         $('ul.box-mode li#box-mode-mobile').addClass('active');
         $('ul.box-mode li#box-mode-mobile').addClass('background-active');
-        
+
         var my_frame = document.getElementById('builder_iframe');
         var width = $('.content-background.mode-mobile').width();
         my_frame.style.width = width + 'px';
@@ -2949,7 +2951,7 @@ Editor.prototype = {
             thisEditor.adjustIframeSize();
         }, 500);
     },
-    
+
     backgroundModeTablet: function() {
         var thisEditor = this;
         $('.content-background').addClass('mode-tablet');
@@ -2958,11 +2960,11 @@ Editor.prototype = {
         $('li.mode-tablet').find('i.icon-mode').css('color', 'white');
         $('li.mode-mobile').find('i.icon-mode').css('color', 'rgb(150, 150, 150)');
         $('li.mode-desktop').find('i.icon-mode').css('color', 'rgb(150, 150, 150)');
-        
+
         thisEditor.changeActiveDevice();
         $('ul.box-mode li#box-mode-tablet').addClass('active');
         $('ul.box-mode li#box-mode-tablet').addClass('background-active');
-        
+
         var my_frame = document.getElementById('builder_iframe');
         var width = $('.content-background.mode-tablet').width();
         my_frame.style.width = width + 'px';
@@ -2977,7 +2979,7 @@ Editor.prototype = {
             thisEditor.adjustIframeSize();
         }, 500);
     },
-    
+
     backgroundModeDesktop: function() {
         var thisEditor = this;
         $('.content-background').addClass('mode-desktop');
@@ -2986,11 +2988,11 @@ Editor.prototype = {
         $('li.mode-desktop').find('i.icon-mode').css('color', 'white');
         $('li.mode-mobile').find('i.icon-mode').css('color', 'rgb(150, 150, 150)');
         $('li.mode-tablet').find('i.icon-mode').css('color', 'rgb(150, 150, 150)');
-        
+
         thisEditor.changeActiveDevice();
         $('ul.box-mode li#box-mode-desktop').addClass('active');
         $('ul.box-mode li#box-mode-desktop').addClass('background-active');
-        
+
         var my_frame = document.getElementById('builder_iframe');
         var width = $('.content-background.mode-desktop').width();
         my_frame.style.width = width + 'px';
@@ -3052,7 +3054,7 @@ Editor.prototype = {
                     if (thisEditor.strict) {
                         $("#builder_iframe").contents().find("[builder-element='PageElement']").html('');
                         thisEditor.checkEmpty();
-                    }                    
+                    }
                 });
             }
         });
@@ -3159,7 +3161,7 @@ Editor.prototype = {
         $('div.showPreview').show("fast", function() {
             $('#modal-preview-desktop .modal-body-preview').hide();
             $('#modal-preview-desktop .modal-body-preview-mobile').hide();
-            
+
             thisBuilder.hideControls();
 
 
@@ -3174,7 +3176,7 @@ Editor.prototype = {
 
                     thisBuilder.setAdjustFrame('mobile');
                 });
-                
+
 
             } else {
                 $('#modal-preview-desktop .modal-body-preview').show("fast", function() {
@@ -3184,7 +3186,7 @@ Editor.prototype = {
 
                     thisBuilder.setAdjustFrame('desktop');
                 });
-                
+
             }
         });
     },
@@ -3216,7 +3218,7 @@ Editor.prototype = {
                                                 '</div>'+
                                             '</li>');
 
-                    // bee pro tags                    
+                    // bee pro tags
                     $('.tags-container').append(`
                         <div class="tag-item ml-2 mb-2" title="`+tag.tag+`">
                             <span class="tag-icon">
@@ -3247,7 +3249,7 @@ Editor.prototype = {
                                                     '<div class="c-choiceCard_innerContainer">'+
                                                         '<a aria-label="button" title="'+ getI18n('selected_template') +'" style="background-position: center;background-size: 151px;background-repeat: no-repeat;background-image: url('+ template.thumbnail +');" href="'+ template.url +'" class="newTemplate new-from-template-select c-choiceCard_label overflow--visible background-size--cover background-position--center-top border-gray border-radius--lv1 v-aspectRatio--square margin-bottom--lv1"></a>'+
                                                         '<p title="'+ template.name +'" class="text-align--center margin-bottom--lv0 font-weight--bold ">'+ template.name +'</p>'+
-                                                        
+
                                                     '</div>'+
                                                 '</li>');
 
@@ -3256,7 +3258,7 @@ Editor.prototype = {
                     '<div class="c-choiceCard_innerContainer">'+
                         '<a aria-label="button" title="'+ getI18n('selected_template') +'" style="background-position: center;background-size: 151px;background-repeat: no-repeat;background-image: url('+ template.thumbnail +');" href="'+ template.url +'" class="newTemplate new-from-template-select c-choiceCard_label overflow--visible background-size--cover background-position--center-top border-gray border-radius--lv1 v-aspectRatio--square margin-bottom--lv1"></a>'+
                         '<p title="'+ template.name +'" class="text-align--center margin-bottom--lv0 font-weight--bold ">'+ template.name +'</p>'+
-                          
+
                     '</div>'+
                 '</li>');
             });
@@ -3305,7 +3307,7 @@ Editor.prototype = {
         // logo
         if (typeof(this.logo) !== 'undefined') {
             $('.logo .logo-img').attr('src', this.logo);
-        }        
+        }
     },
 
     init: function() {
@@ -3354,8 +3356,8 @@ Editor.prototype = {
         thisEditor.content = this.iframe.contents().find('body');
         thisEditor.window = this.iframe.contents().find("html");
         thisEditor.selected = null;
-        
-        // 
+
+        //
         thisEditor.initIframe();
 
         // load tags buttons
@@ -3372,7 +3374,7 @@ Editor.prototype = {
 
         // set logo
         thisEditor.setLogo();
-        
+
         // set backgrounds
         thisEditor.setBackgrounds();
 
@@ -3380,7 +3382,7 @@ Editor.prototype = {
         thisEditor.loadPageJs([thisEditor.root+'iframe/tinymce/tinymce.min.js']);
 
         // strict layout fix
-        thisEditor.checkStrict();        
+        thisEditor.checkStrict();
 
         // check export button
         if (thisEditor.export == null) {
@@ -3408,7 +3410,7 @@ Editor.prototype = {
 
     checkDisableFeatures: function() {
         var thisEditor = this;
-        
+
         if (thisEditor.disableFeatures == null) {
             return;
         }
@@ -3442,7 +3444,7 @@ Editor.prototype = {
         var thisEditor = this;
 
         if(!thisEditor.strict) {
-            $('#nav-profile-tab').remove();            
+            $('#nav-profile-tab').remove();
             $('.design .design-new').parent().hide();
             $('.design .design-clear').parent().hide();
             if (!thisEditor.strict) {
@@ -3619,7 +3621,7 @@ Editor.prototype = {
         if (obj.hasClass('btn')) {
             element = new ButtonElement(obj);
         }
-       
+
         switch(tagName) {
             case 'p':
                 element = new PElement(obj);
@@ -3707,7 +3709,7 @@ Editor.prototype = {
             if (this.isHelperTarget(obj)) {
                 return null;
             }
-            
+
             // check if is not element
             if (this.isNotElement(obj)) {
                 return null;
@@ -3716,12 +3718,12 @@ Editor.prototype = {
             return this.getElementByTagName(obj);
         }
 
-        
+
     },
 
     handleSelect: function(callback) {
         var thisEditor = this;
-        
+
         setTimeout(function() {
             thisEditor.loadControls();
 
@@ -3810,7 +3812,7 @@ Editor.prototype = {
             }
 
             group.append('<div>' + thisEditor.transformHtml(control.renderHtml()) + '</div>');
-            
+
             // after render control
             if (typeof(control.afterRender) != 'undefined') {
                 control.afterRender();
@@ -3837,12 +3839,12 @@ Editor.prototype = {
                         <div class="attributes" group-id="cell-container-`+control.groupId()+`">
                         </div>
                     </div>`));
-                    
+
                     group = $('.attributes[group-id="cell-container-'+control.groupId()+'"]');
                 }
 
                 group.append('<div>' + thisEditor.transformHtml(control.renderHtml()) + '</div>');
-                
+
                 // after render control
                 if (typeof(control.afterRender) != 'undefined') {
                     control.afterRender();
@@ -3870,12 +3872,12 @@ Editor.prototype = {
                         <div class="attributes" group-id="container-`+control.groupId()+`">
                         </div>
                     </div>`));
-                    
+
                     group = $('.attributes[group-id="container-'+control.groupId()+'"]');
                 }
 
                 group.append('<div>' + thisEditor.transformHtml(control.renderHtml()) + '</div>');
-                
+
                 // after render control
                 if (typeof(control.afterRender) != 'undefined') {
                     control.afterRender();

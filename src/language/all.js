@@ -1,5 +1,6 @@
 var LANGUAGE = {
     'en': {
+        'widget.SennarhProductWidget': 'Sennarh Product',
         'cell.responsive': 'Responsive on mobile',
         'cell.responsive.wording': 'Make all cells full-width when on mobile (or window width <= 600px). This may not work on some email clients (e.g. old outlook,...)',
         'control.image.fix_width': 'Fixed',
@@ -169,7 +170,7 @@ var LANGUAGE = {
         'navbar.contents.tag_options': 'TAG OPTIONS',
         'navbar.contents.widgets': 'widgets',
         'navbar.contents.layouts': 'layouts',
-        'navbar.contents.tags': 'tags',        
+        'navbar.contents.tags': 'tags',
         'navbar.contents.setting': 'Setting',
         'navbar.contents.show_more.loading': 'Show more...',
         'navbar.contents.show_less.loading': 'Show less...',
@@ -261,7 +262,7 @@ var LANGUAGE = {
         'wpanel.others.desktop.1280.title': '1280 x 1024',
         'wpanel.others.desktop.1360.title': '1360 x 768',
         'wpanel.others.desktop.1920.title': '1920 x 1080',
-        
+
         'wpanel.others.change_image.title': 'Change Image',
         'wpanel.others.loading.title': 'Loading...',
         'wpanel.others.upload.title': 'Upload',
@@ -559,6 +560,7 @@ var LANGUAGE = {
         'link_color': 'Link color',
         'line_height': 'Line height',
         'action': 'ACTION',
+        'product': 'PRODUCT',
         'block_options': 'BLOCK OPTIONS',
         'text_color': 'Text color',
         'image': 'Image ',
