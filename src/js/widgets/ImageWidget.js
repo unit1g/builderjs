@@ -166,7 +166,7 @@ export default class ImageWidget extends Widget {
                 }
             }).fail(function(jqXHR, textStatus, errorThrown) { // jqXHR.status = 5xx hoac 4xx
                 var json = $.parseJSON(jqXHR.responseText);
-                alert(getI18n('error_upload_file') + json.error.file[0]);
+                alert(getI18n('error_upload_file') + json.errors.file[0]);
                 idContent.html(html);
             });
         }
