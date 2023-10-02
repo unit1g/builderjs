@@ -3165,8 +3165,8 @@ Editor.prototype = {
             thisBuilder.hideControls();
 
 
-            $('#previewIframeMobile').attr('src', thisBuilder.url);
-            $('#previewIframeDesktop').attr('src', thisBuilder.url);
+            // $('#previewIframeMobile').attr('src', thisBuilder.url);
+            // $('#previewIframeDesktop').attr('src', thisBuilder.url);
             // load iframe
             if (device == 'mobile') {
                 $('#modal-preview-desktop .modal-body-preview-mobile').show("fast", function() {
